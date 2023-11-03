@@ -44,6 +44,9 @@ void change_color(int r, int g, int b);
 void clear();
 void save(const char* path);
 void shutdown();
+void *goto(int x, int y);	// TODO
+void *where();				// TODO
+
 
 %}
 
@@ -83,10 +86,10 @@ statement:		command SEP					{ prompt(); }
 		;
 command:		PENUP						{ penup(); }
 		;
-expression_list:
-		|	// Complete these and any missing rules
+expression_list:		expression
+		|	expression expression_list    // Complete these and any missing rules
 		;
-expression:		NUMBER PLUS expression				{ $$ = $1 + $3; }
+expression:				NUMBER PLUS expression				{ $$ = $1 + $3; }
 		|	NUMBER MULT expression				{ $$ = $1 * $3; }
 		|	NUMBER SUB expression				{ $$ = $1 - $3; }
 		|	NUMBER DIV expression				{ $$ = $1 / $3; }
