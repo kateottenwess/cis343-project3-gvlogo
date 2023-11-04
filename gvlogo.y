@@ -244,3 +244,11 @@ void save(const char* path){
 	SDL_SaveBMP(surface, path);
 	SDL_FreeSurface(surface);
 }
+
+void *goto(int x, int y) {	// TODO
+
+}
+
+void *where() {			// TODO
+	printf("The turtle is located at (%d, %d). /n", x, y);
+}
