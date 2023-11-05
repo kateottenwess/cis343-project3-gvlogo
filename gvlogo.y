@@ -24,7 +24,18 @@ typedef struct color_t {
 	unsigned char b;
 } color;
 
+//added
+typedef struct coord_t {
+	int x;
+	int y;
+} coords;
+
+//added
+static coords current_coords;
+
 static color current_color;
+
+//why is height and weight divided by 2?
 static double x = WIDTH / 2;
 static double y = HEIGHT / 2;
 static int pen_state = 1;
@@ -44,6 +55,8 @@ void change_color(int r, int g, int b);
 void clear();
 void save(const char* path);
 void shutdown();
+void goto(int x, int y);
+void where();
 
 %}
 
@@ -240,4 +253,55 @@ void save(const char* path){
 	SDL_RenderReadPixels(rend, NULL, SDL_PIXELFORMAT_ARGB8888, surface->pixels, surface->pitch);
 	SDL_SaveBMP(surface, path);
 	SDL_FreeSurface(surface);
+}
+
+//TODO finish & test
+void goto(int x, int y) {
+	//change current coordinates
+	coords prev_coords = curr_coords;
+	curr_coords.x = x;
+	curr_coords.y = y;
+
+	//draw if pen is down
+	if(pen_state == 1){
+		//get change in x and y
+		int slope_y = curr_coords.y - prev_coords.y;
+		int slope_x = curr_coords.x - prev_coords.x;
+
+		//TODO: REDUCE SLOPE VALUES IF POSSIBLE
+		
+		//loop through and change color of coords to current color
+		int temp_x = prev_coords.x
+		int temp_y = prev_coords.y
+
+		while(temp_x != curr_coords.x && temp_y != curr_coords.y) {
+			//go through change in y
+			//if y is positive or 0	
+			if(slope_y >= 0) {
+								
+			}
+
+			//if y is negative
+			else {
+
+			}
+
+			//go through change in x
+			//if x is positive or 0
+			if(slope_x >=0) {
+			
+			}
+			//if x is negative
+			else {
+
+			}
+		}
+	}
+}
+
+
+//TODO test this
+void where() {
+	//print current coordinates
+	printf("Current coordinates: (%d, %d)\n", current_coords.x, current_coords.y);
 }
