@@ -255,7 +255,7 @@ void save(const char* path){
 	SDL_FreeSurface(surface);
 }
 
-//TODO finish & test
+//TODO test
 void goto(int x, int y) {
 	//change current coordinates
 	coords prev_coords = curr_coords;
@@ -268,58 +268,10 @@ void goto(int x, int y) {
 		int slope_y = curr_coords.y - prev_coords.y;
 		int slope_x = curr_coords.x - prev_coords.x;
 
-		//reduce slope values if possible
-		//TODO i have no idea if this works lmao
-		if(slope_x != 0) {
-			int mod = 1;
-			int x = slope_x;
-			int y = slope_y;
-			
-			while(mod != 0){
-				//y is numerator x is denominator
-				mod = y % x;
-				x = y;
-				y = mod;
-			}
-
-			slope_x = slope_x / x;
-			slope_y = slope_y / x;
-		}
-		
-		//loop through and change color of coords to current color
-		int temp_x = prev_coords.x
-		int temp_y = prev_coords.y
-
-		while(temp_x != curr_coords.x && temp_y != curr_coords.y) {
-			//go through change in y
-			//if y is positive or 0	
-			if(slope_y >= 0) {
-				for(int i = 1; i < slope_y + 1; i++) {
-					
-				}
-			}
-
-			//if y is negative
-			else {
-				for(int i = -1; i < slope_y - 1; i--) {
-
-				}
-			}
-
-			//go through change in x
-			//if x is positive or 0
-			if(slope_x >=0) {
-				for(int i = 1; i < slope_x + 1; i++) {
-
-				}
-			}
-			//if x is negative
-			else {
-				for(int i = -1; i < slope_x - 1; i++) {
-
-				}
-			}
-		}
+		//inverse tangent to get degrees to move
+		double dir = atan(slope_y/slope_x);
+		//draw
+		move(dir);
 	}
 }
 
