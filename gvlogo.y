@@ -66,7 +66,8 @@ void where();
 }
 
 %locations
-
+%token GOTO
+%token WHERE
 %token SEP
 %token PENUP
 %token PENDOWN
@@ -95,6 +96,15 @@ statement:		command SEP					{ prompt(); }
 		|	error '\n' 					{ yyerrok; prompt(); }
 		;
 command:		PENUP						{ penup(); }
+	   	|		PENDOWN						{ pendown(); }
+		|		PRINT						{ print(); }
+		|		CLEAR						{ clear(); }
+		|		GOTO						{ goto(); }
+		|		WHERE						{ where(); }
+		|		CHANGE_COLOR				{ change_color(); }
+		|		TURN						{ turn(); }
+		|		MOVE						{ move(); }
+		|		SAVE						{ save(); }
 		;
 expression_list:
 		|	// Complete these and any missing rules
