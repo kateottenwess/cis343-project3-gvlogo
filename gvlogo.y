@@ -24,7 +24,18 @@ typedef struct color_t {
 	unsigned char b;
 } color;
 
+//added
+typedef struct coord_t {
+	int x;
+	int y;
+} coords;
+
+//added
+static coords current_coords;
+
 static color current_color;
+
+//why is height and weight divided by 2?
 static double x = WIDTH / 2;
 static double y = HEIGHT / 2;
 static int pen_state = 1;
@@ -44,9 +55,14 @@ void change_color(int r, int g, int b);
 void clear();
 void save(const char* path);
 void shutdown();
+<<<<<<< HEAD
 void *goto(int x, int y);	// TODO
 void *where();				// TODO
 
+=======
+void goto(int x, int y);
+void where();
+>>>>>>> 84cdc1e45571721d0c8d73a4a2531ac2ce19b8c0
 
 %}
 
@@ -56,7 +72,8 @@ void *where();				// TODO
 }
 
 %locations
-
+%token GOTO
+%token WHERE
 %token SEP
 %token PENUP
 %token PENDOWN
@@ -85,6 +102,15 @@ statement:		command SEP					{ prompt(); }
 		|	error '\n' 					{ yyerrok; prompt(); }
 		;
 command:		PENUP						{ penup(); }
+	   	|		PENDOWN						{ pendown(); }
+		|		PRINT						{ print(); }
+		|		CLEAR						{ clear(); }
+		|		GOTO						{ goto(); }
+		|		WHERE						{ where(); }
+		|		CHANGE_COLOR				{ change_color(); }
+		|		TURN						{ turn(); }
+		|		MOVE						{ move(); }
+		|		SAVE						{ save(); }
 		;
 expression_list:		expression
 		|	expression expression_list    // Complete these and any missing rules
@@ -245,6 +271,7 @@ void save(const char* path){
 	SDL_FreeSurface(surface);
 }
 
+<<<<<<< HEAD
 void *goto(int x, int y) {	// TODO
 
 }
@@ -252,3 +279,31 @@ void *goto(int x, int y) {	// TODO
 void *where() {			// TODO
 	printf("The turtle is located at (%d, %d). /n", x, y);
 }
+=======
+//TODO test
+void goto(int x, int y) {
+	//change current coordinates
+	coords prev_coords = curr_coords;
+	curr_coords.x = x;
+	curr_coords.y = y;
+
+	//draw if pen is down
+	if(pen_state == 1){
+		//get change in x and y
+		int slope_y = curr_coords.y - prev_coords.y;
+		int slope_x = curr_coords.x - prev_coords.x;
+
+		//inverse tangent to get degrees to move
+		double dir = atan(slope_y/slope_x);
+		//draw
+		move(dir);
+	}
+}
+
+
+//TODO test this
+void where() {
+	//print current coordinates
+	printf("Current coordinates: (%d, %d)\n", current_coords.x, current_coords.y);
+}
+>>>>>>> 84cdc1e45571721d0c8d73a4a2531ac2ce19b8c0
