@@ -5,8 +5,8 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_thread.h>
+#include <SDL.h>
+#include <SDL_thread.h>
 
 static SDL_Window* window;
 static SDL_Renderer* rend;
@@ -55,14 +55,9 @@ void change_color(int r, int g, int b);
 void clear();
 void save(const char* path);
 void shutdown();
-<<<<<<< HEAD
 void *goto(int x, int y);	// TODO
 void *where();				// TODO
 
-=======
-void goto(int x, int y);
-void where();
->>>>>>> 84cdc1e45571721d0c8d73a4a2531ac2ce19b8c0
 
 %}
 
@@ -271,15 +266,6 @@ void save(const char* path){
 	SDL_FreeSurface(surface);
 }
 
-<<<<<<< HEAD
-void *goto(int x, int y) {	// TODO
-
-}
-
-void *where() {			// TODO
-	printf("The turtle is located at (%d, %d). /n", x, y);
-}
-=======
 //TODO test
 void goto(int x, int y) {
 	//change current coordinates
@@ -306,4 +292,3 @@ void where() {
 	//print current coordinates
 	printf("Current coordinates: (%d, %d)\n", current_coords.x, current_coords.y);
 }
->>>>>>> 84cdc1e45571721d0c8d73a4a2531ac2ce19b8c0
