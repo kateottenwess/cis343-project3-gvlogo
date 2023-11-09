@@ -55,8 +55,8 @@ void change_color(int r, int g, int b);
 void clear();
 void save(const char* path);
 void shutdown();
-void *goto(int x, int y);	// TODO
-void *where();				// TODO
+void goto(int x, int y);	// TODO
+void where();				// TODO
 
 
 %}
@@ -74,7 +74,6 @@ void *where();				// TODO
 %token PENDOWN
 %token PRINT
 %token CHANGE_COLOR
-// %token COLOR    // don't need this i don't think
 %token CLEAR
 %token TURN
 %token LOOP

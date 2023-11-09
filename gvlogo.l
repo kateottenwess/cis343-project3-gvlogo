@@ -20,7 +20,7 @@ CLEAR                              {return CLEAR;}
 TURN                               {return TURN;}
 LOOP                               {return LOOP;}
 MOVE                               {return MOVE;}
-
+SAVE                               {return SAVE;}
 [+]                                {return PLUS;}
 [-]                                {return SUB;}
 [*]                                {return MULT;}
