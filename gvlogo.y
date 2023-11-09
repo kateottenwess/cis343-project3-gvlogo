@@ -100,12 +100,12 @@ command:		PENUP						{ penup(); }
 	   	|		PENDOWN						{ pendown(); }
 		|		PRINT						{ print(); }
 		|		CLEAR						{ clear(); }
-		|		GOTO						{ goto(); }
+		|		GOTO						{ goto($2, $3); }
 		|		WHERE						{ where(); }
-		|		CHANGE_COLOR				{ change_color(); }
-		|		TURN						{ turn(); }
-		|		MOVE						{ move(); }
-		|		SAVE						{ save(); }
+		|		CHANGE_COLOR				{ change_color($2, $3, $4); }
+		|		TURN						{ turn($2); }
+		|		MOVE						{ move($2); }
+		|		SAVE						{ save($2); }
 		;
 expression_list:	expression				// Complete these and any missing rules
 		|	        expression expression_list   
