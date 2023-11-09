@@ -55,10 +55,8 @@ void change_color(int r, int g, int b);
 void clear();
 void save(const char* path);
 void shutdown();
-void *goto(int x, int y);	// TODO
-void *where();				// TODO
-
-
+void goto(int x, int y);	// TODO
+void where();				// TODO
 %}
 
 %union {
@@ -66,7 +64,7 @@ void *where();				// TODO
 	char* s;
 }
 
-%locations
+%locations 
 %token GOTO
 %token WHERE
 %token SEP
@@ -74,7 +72,6 @@ void *where();				// TODO
 %token PENDOWN
 %token PRINT
 %token CHANGE_COLOR
-// %token COLOR    // don't need this i don't think
 %token CLEAR
 %token TURN
 %token LOOP
@@ -94,7 +91,7 @@ statement_list:		statement
 		|	statement statement_list
 		;
 statement:		command SEP					{ prompt(); }
-		|	error '\n' 					{ yyerrok; prompt(); }
+		|	error '\n' 					    { yyerror; prompt(); }
 		;
 command:		PENUP						{ penup(); }
 	   	|		PENDOWN						{ pendown(); }
