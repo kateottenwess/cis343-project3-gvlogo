@@ -61,20 +61,19 @@ extern int yydebug;
     PENDOWN = 262,                 /* PENDOWN  */
     PRINT = 263,                   /* PRINT  */
     CHANGE_COLOR = 264,            /* CHANGE_COLOR  */
-    COLOR = 265,                   /* COLOR  */
-    CLEAR = 266,                   /* CLEAR  */
-    TURN = 267,                    /* TURN  */
-    LOOP = 268,                    /* LOOP  */
-    MOVE = 269,                    /* MOVE  */
-    NUMBER = 270,                  /* NUMBER  */
-    END = 271,                     /* END  */
-    SAVE = 272,                    /* SAVE  */
-    PLUS = 273,                    /* PLUS  */
-    SUB = 274,                     /* SUB  */
-    MULT = 275,                    /* MULT  */
-    DIV = 276,                     /* DIV  */
-    STRING = 277,                  /* STRING  */
-    QSTRING = 278                  /* QSTRING  */
+    CLEAR = 265,                   /* CLEAR  */
+    TURN = 266,                    /* TURN  */
+    LOOP = 267,                    /* LOOP  */
+    MOVE = 268,                    /* MOVE  */
+    NUMBER = 269,                  /* NUMBER  */
+    END = 270,                     /* END  */
+    SAVE = 271,                    /* SAVE  */
+    PLUS = 272,                    /* PLUS  */
+    SUB = 273,                     /* SUB  */
+    MULT = 274,                    /* MULT  */
+    DIV = 275,                     /* DIV  */
+    STRING = 276,                  /* STRING  */
+    QSTRING = 277                  /* QSTRING  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -87,6 +86,7 @@ union YYSTYPE
 
 	float f;
 	char* s;
+	int i;
 
 #line 92 "gvlogo.tab.h"
 

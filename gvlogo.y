@@ -5,8 +5,8 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <SDL.h>
-#include <SDL_thread.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_thread.h>
 
 static SDL_Window* window;
 static SDL_Renderer* rend;
@@ -55,8 +55,8 @@ void change_color(int r, int g, int b);
 void clear();
 void save(const char* path);
 void shutdown();
-void *goto(int x, int y);	// TODO
-void *where();				// TODO
+void goto(int x, int y);	// TODO
+void where();				// TODO
 
 
 %}
@@ -64,6 +64,7 @@ void *where();				// TODO
 %union {
 	float f;
 	char* s;
+	int i;
 }
 
 %locations
@@ -102,10 +103,11 @@ command:		PENUP						{ penup(); }
 		|		CLEAR						{ clear(); }
 		|		GOTO						{ goto(); }
 		|		WHERE						{ where(); }
-		|		CHANGE_COLOR				{ change_color(); }
-		|		TURN						{ turn(); }
-		|		MOVE						{ move(); }
+		|		CHANGE_COLOR				{ change_color(i, i, i); }
+		|		TURN						{ turn(i); }
+		|		MOVE						{ move(i); }
 		|		SAVE						{ save(); }
+		//how to we give arguments to move, turn etc
 		;
 expression_list:	expression				// Complete these and any missing rules
 		|	        expression expression_list   
