@@ -57,8 +57,6 @@ void save(const char* path);
 void shutdown();
 void goto(int x, int y);	// TODO
 void where();				// TODO
-
-
 %}
 
 %union {
@@ -66,7 +64,7 @@ void where();				// TODO
 	char* s;
 }
 
-%locations
+%locations 
 %token GOTO
 %token WHERE
 %token SEP
@@ -93,16 +91,16 @@ statement_list:		statement
 		|	statement statement_list
 		;
 statement:		command SEP					{ prompt(); }
-		|	error '\n' 					{ yyerrok; prompt(); }
+		|	error '\n' 					    { yyerror; prompt(); }
 		;
 command:		PENUP						{ penup(); }
 	   	|		PENDOWN						{ pendown(); }
 		|		PRINT						{ print(); }
 		|		CLEAR						{ clear(); }
-		|		GOTO						{ goto(); }
+		|		GOTO						{ goto(i, i); }
 		|		WHERE						{ where(); }
 		|		CHANGE_COLOR				{ change_color(); }
-		|		TURN						{ turn(); }
+		|		TURN						{ turn(s); }
 		|		MOVE						{ move(); }
 		|		SAVE						{ save(); }
 		;
