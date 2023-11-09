@@ -74,7 +74,7 @@ void *where();				// TODO
 %token PENDOWN
 %token PRINT
 %token CHANGE_COLOR
-%token COLOR
+// %token COLOR    // don't need this i don't think
 %token CLEAR
 %token TURN
 %token LOOP
@@ -107,8 +107,9 @@ command:		PENUP						{ penup(); }
 		|		MOVE						{ move(); }
 		|		SAVE						{ save(); }
 		;
-expression_list:		expression
-		|	expression expression_list    // Complete these and any missing rules
+expression_list:	expression				// Complete these and any missing rules
+		|	        expression expression_list   
+		|           expression PLUS expression_list 		// correct?
 		;
 expression:				NUMBER PLUS expression				{ $$ = $1 + $3; }
 		|	NUMBER MULT expression				{ $$ = $1 * $3; }
