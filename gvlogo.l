@@ -8,11 +8,12 @@ extern void yyerror(const char* s);
 
 %%
 
-[A-Z]{1}[a-z]+.                    { yylval.str = yytext; return STRING; } 
-[0-9]+                             { yylval.num = atoi(yytext); return NUMBER; }
+[A-Z]{1}[a-z]+                     { yylval.s = yytext; return STRING; } 
+[0-9]+                             { yylval.i = atoi(yytext); return NUMBER; }
+[a-z]{1}			   { yylval.c = yytext; return CHAR; }
 ;                                  {return SEP;}
 GOTO                               {return GOTO;}
-WHERE                              {return WHERE}
+WHERE                              {return WHERE;}
 CHANGE_COLOR                       {return CHANGE_COLOR;}
 PENUP                              {return PENUP;}
 PENDOWN                            {return PENDOWN;}
@@ -25,6 +26,7 @@ SAVE                               {return SAVE;}
 [+]                                {return PLUS;}
 [-]                                {return SUB;}
 [*]                                {return MULT;}
+[=]				   {return EQUAL;}
 [/]                                {return DIV;}
 [ \t\r\n]			               {;}
 .			                       { yyerror("Lexing Syntax error.\n"); } 
