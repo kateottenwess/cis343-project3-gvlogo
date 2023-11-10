@@ -5,8 +5,8 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <SDL.h>
-#include <SDL_thread.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_thread.h>
 
 static SDL_Window* window;
 static SDL_Renderer* rend;
@@ -40,6 +40,7 @@ static double x = WIDTH / 2;
 static double y = HEIGHT / 2;
 static int pen_state = 1;
 static double direction = 0.0;
+static int variable[26];
 
 int yylex(void);
 int yyerror(const char* s);
@@ -55,16 +56,21 @@ void change_color(int r, int g, int b);
 void clear();
 void save(const char* path);
 void shutdown();
-void goto(int x, int y);	// TODO
+void goTo(int x, int y);	// TODO
 void where();				// TODO
+void store_variables(char variable, int expression_result);
+
 %}
 
 %union {
 	float f;
 	char* s;
+	int i;
+	char c;
 }
 
 %locations 
+%token CHAR
 %token GOTO
 %token WHERE
 %token SEP
@@ -79,7 +85,7 @@ void where();				// TODO
 %token NUMBER
 %token END
 %token SAVE
-%token PLUS SUB MULT DIV
+%token PLUS SUB MULT DIV EQUAL
 %token<s> STRING QSTRING
 %type<f> expression expression_list NUMBER
 
@@ -93,26 +99,29 @@ statement_list:		statement
 statement:		command SEP					{ prompt(); }
 		|	error '\n' 					    { yyerror; prompt(); }
 		;
-command:		PENUP						{ penup(); }
+command:			PENUP						{ penup(); }
 	   	|		PENDOWN						{ pendown(); }
 		|		PRINT						{ print(); }
 		|		CLEAR						{ clear(); }
-		|		GOTO						{ goto(i, i); }
+		|		GOTO expression expression			{ goTo($2, $3); }
 		|		WHERE						{ where(); }
-		|		CHANGE_COLOR				{ change_color(); }
-		|		TURN						{ turn(s); }
-		|		MOVE						{ move(); }
-		|		SAVE						{ save(); }
+		|		CHANGE_COLOR expression expression expression	{ change_color($2, $3, $4); }
+		|		TURN expression					{ turn($2); }
+		|		MOVE expression expression			{ move($2); }
+		|		//SAVE expression					{ save($2); }
+				//this is my attempt to get variables going lol
+		|		CHAR EQUAL expression_list			//{ (variable location in array) = (the expression) }
 		;
 expression_list:	expression				// Complete these and any missing rules
-		|	        expression expression_list   
-		|           expression PLUS expression_list 		// correct?
+		|	expression expression_list   
+		|       expression PLUS expression_list 		// correct?
 		;
-expression:				NUMBER PLUS expression				{ $$ = $1 + $3; }
+expression:		NUMBER PLUS expression				{ $$ = $1 + $3; }
 		|	NUMBER MULT expression				{ $$ = $1 * $3; }
 		|	NUMBER SUB expression				{ $$ = $1 - $3; }
 		|	NUMBER DIV expression				{ $$ = $1 / $3; }
 		|	NUMBER
+		|	STRING
 		;
 
 %%
@@ -265,17 +274,17 @@ void save(const char* path){
 }
 
 //TODO test
-void goto(int x, int y) {
+void goTo(int x, int y) {
 	//change current coordinates
-	coords prev_coords = curr_coords;
-	curr_coords.x = x;
-	curr_coords.y = y;
+	coords prev_coords = current_coords;
+	current_coords.x = x;
+	current_coords.y = y;
 
 	//draw if pen is down
 	if(pen_state == 1){
 		//get change in x and y
-		int slope_y = curr_coords.y - prev_coords.y;
-		int slope_x = curr_coords.x - prev_coords.x;
+		int slope_y = current_coords.y - prev_coords.y;
+		int slope_x = current_coords.x - prev_coords.x;
 
 		//inverse tangent to get degrees to move
 		double dir = atan(slope_y/slope_x);
@@ -289,4 +298,87 @@ void goto(int x, int y) {
 void where() {
 	//print current coordinates
 	printf("Current coordinates: (%d, %d)\n", current_coords.x, current_coords.y);
+}
+
+void store_variables(char variable, int expression_result) {
+	switch(variable) {
+		case 'a':
+			variable[0] = expression_result;
+			break;
+		case 'b':
+			variable[1] = expression_result;
+			break;
+		case 'c':
+			variable[2] = expression_result;
+			break;
+		case 'd':
+			variable[3] = expression_result;
+			break;
+		case 'e':
+			variable[4] = expression_result;
+			break;
+		case 'f':
+			variable[5] = expression_result;
+			break;
+		case 'g':
+			variable[6] = expression_result;
+			break;
+		case 'h':
+			variable[7] = expression_result;
+			break;
+		case 'i':
+			variable[8] = expression_result;
+			break;
+		char 'j':
+			variable[9] = expression_result;
+			break;
+		case 'k':
+			variable[10] = expression_result;
+			break;
+		case 'l':
+			variable[11] = expression_result;
+			break;
+		case 'm':
+			variable[12] = expression_result;
+			break;
+		case 'n':
+			variable[13] = expression_result;
+			break;
+		case 'o':
+			variable[14] = expression_result;
+			break;
+		case 'p':
+			variable[15] = expression_result;
+			break;
+		case 'q':
+			variable[16] = expression_result;
+			break;
+		case 'r':
+			variable[17] = expression_result;
+			break;
+		case 's':
+			variable[18] = expression_result;
+			break;
+		case 't':
+			variable[19] = expression_result;
+			break;
+		case 'u':
+			variable[20] = expression_result;
+			break;
+		case 'v':
+			variable[21] = expression_result;
+			break;
+		case 'w':
+			variable[22] = expression_result;
+			break;
+		case 'x':
+			variable[23] = expression_result;
+			break;
+		case 'y':
+			variable[24] = expression_result;
+			break;
+		case 'z':
+			variable[25] = expression_result;
+			break;
+	}
 }
