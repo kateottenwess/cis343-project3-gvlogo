@@ -25,11 +25,11 @@ END                                {return END;}
 SAVE                               {return SAVE;}
 RUN                                {return RUN;}
 SHUTDOWN                           {return SHUTDOWN;}
-[+]                                {return PLUS;}
-[-]                                {return SUB;}
-[*]                                {return MULT;}
-[=]				                   {return EQUAL;}
-[/]                                {return DIV;}
+\+                                {return PLUS;}
+\-                                {return SUB;}
+\*                                {return MULT;}
+=				                   {return EQUAL;}
+\/                                {return DIV;}
 [ \t\r\n]			               {;}
 .			                       { yyerror("Lexing Syntax error.\n"); } 
 

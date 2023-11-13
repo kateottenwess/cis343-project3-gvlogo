@@ -33,7 +33,7 @@ typedef struct coord_t {
 //added
 static coords current_coords;
 
-static color current_color;
+static color current_color = ;
 
 //why is height and weight divided by 2?
 static double x = WIDTH / 2;
@@ -53,7 +53,7 @@ void move(int num);
 void turn(int dir);
 void output(const char* s);
 void change_color(int r, int g, int b);
-void clear();
+void c lear();
 void save(const char* path);
 void shutdown();
 void goTo(int x, int y);	// TODO
@@ -104,6 +104,9 @@ statement_list:		statement
 statement:		command SEP					{ prompt(); }
 		|	error '\n' 					    { yyerror; prompt(); }
 		;
+
+// Add definition for Variable here?????
+
 command:		PENUP						{ penup(); }
 	   	|		PENDOWN						{ pendown(); }
 		|		PRINT STRING				{ output($2); }
@@ -114,7 +117,6 @@ command:		PENUP						{ penup(); }
 		|		TURN expression						{ turn($2); }
 		|		MOVE expression 					{ move($2); }
 		|		SAVE expression						{ save($2); }
-		|       RUN expression						{ startup(); run($2); }
 		|       SHUTDOWN  						    { shutdown(); }
 		|		CHAR EQUAL expression_list			{ store_variables($1, $2); }      // MY attempt at -> (variable location in array) = (the expression) 
 		;
@@ -248,7 +250,7 @@ void startup(){
 			}
 			if(e.type == COLOR_EVENT){
 				SDL_SetRenderTarget(rend, NULL);
-				SDL_SetRenderDrawColor(rend, current_color.r, current_color.g, current_color.b, 255);
+				SDL_SetRenderDrawColor(rend, current_color.r, current_color.g, 0, 255);
 			}
 			if(e.type == SDL_KEYDOWN){
 			}
