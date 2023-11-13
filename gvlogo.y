@@ -91,22 +91,23 @@ void store_variables(char variable, int expression_result);
 
 %%
 
-program:		statement_list END				{ printf("Program complete."); shutdown(); exit(0); }
+program:		statement_list END			{ printf("Program complete."); shutdown(); exit(0); }
 		;
+print:          PRINT STRING				{output($2);}
 statement_list:		statement					
 		|	statement statement_list
 		;
 statement:		command SEP					{ prompt(); }
 		|	error '\n' 					    { yyerror; prompt(); }
 		;
-command:			PENUP						{ penup(); }
+command:		PENUP						{ penup(); }
 	   	|		PENDOWN						{ pendown(); }
 		|		PRINT						{ print(); }
 		|		CLEAR						{ clear(); }
 		|		GOTO expression expression			{ goTo($2, $3); }
 		|		WHERE						{ where(); }
 		|		CHANGE_COLOR expression expression expression	{ change_color($2, $3, $4); }
-		|		TURN expression					{ turn($2); }
+		|		TURN expression						{ turn($2); }
 		|		MOVE expression expression			{ move($2); }
 		|		//SAVE expression					{ save($2); }
 				//this is my attempt to get variables going lol

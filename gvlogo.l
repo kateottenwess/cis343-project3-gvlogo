@@ -1,16 +1,16 @@
 %{
-#include <stdio.h>
-#include <stdlib.h>
-#include "gvlogo.tab.h"
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include "gvlogo.tab.h"
 
-extern void yyerror(const char* s);
+    extern void yyerror(const char* s);
 %}
 
 %%
 
 [A-Z]{1}[a-z]+                     { yylval.s = yytext; return STRING; } 
 [0-9]+                             { yylval.i = atoi(yytext); return NUMBER; }
-[a-z]{1}			   { yylval.c = yytext; return CHAR; }
+[a-z]{1}			               { yylval.c = yytext; return CHAR; }
 ;                                  {return SEP;}
 GOTO                               {return GOTO;}
 WHERE                              {return WHERE;}
@@ -26,7 +26,7 @@ SAVE                               {return SAVE;}
 [+]                                {return PLUS;}
 [-]                                {return SUB;}
 [*]                                {return MULT;}
-[=]				   {return EQUAL;}
+[=]				                   {return EQUAL;}
 [/]                                {return DIV;}
 [ \t\r\n]			               {;}
 .			                       { yyerror("Lexing Syntax error.\n"); } 
