@@ -71,6 +71,8 @@ void store_variables(char variable, int expression_result);
 
 %locations 
 %token CHAR
+%token RUN
+%token SHUTDOWN
 %token GOTO
 %token WHERE
 %token SEP
@@ -93,7 +95,6 @@ void store_variables(char variable, int expression_result);
 
 program:		statement_list END			{ printf("Program complete."); shutdown(); exit(0); }
 		;
-print:          PRINT STRING				{output($2);}
 statement_list:		statement					
 		|	statement statement_list
 		;
@@ -102,14 +103,16 @@ statement:		command SEP					{ prompt(); }
 		;
 command:		PENUP						{ penup(); }
 	   	|		PENDOWN						{ pendown(); }
-		|		PRINT						{ print(); }
+		|		PRINT STRING				{ output($2); }
 		|		CLEAR						{ clear(); }
 		|		GOTO expression expression	{ goTo($2, $3); }
 		|		WHERE						{ where(); }
 		|		CHANGE_COLOR expression expression expression	{ change_color($2, $3, $4); }
 		|		TURN expression						{ turn($2); }
-		|		MOVE expression expression			{ move($2); }
+		|		MOVE expression 					{ move($2); }
 		|		SAVE expression						{ save($2); }
+		|       RUN expression						{ startup(); run($2); }
+		|       SHUTDOWN  						    { shutdown(); }
 		|		CHAR EQUAL expression_list			{ store_variables($1, $2); }      // MY attempt at -> (variable location in array) = (the expression) 
 		;
 expression_list:	expression				   // Complete these and any missing rules

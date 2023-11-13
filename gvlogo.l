@@ -23,6 +23,8 @@ LOOP                               {return LOOP;}
 MOVE                               {return MOVE;}
 END                                {return END;}
 SAVE                               {return SAVE;}
+RUN                                {return RUN;}
+SHUTDOWN                           {return SHUTDOWN;}
 [+]                                {return PLUS;}
 [-]                                {return SUB;}
 [*]                                {return MULT;}
