@@ -104,25 +104,24 @@ command:		PENUP						{ penup(); }
 	   	|		PENDOWN						{ pendown(); }
 		|		PRINT						{ print(); }
 		|		CLEAR						{ clear(); }
-		|		GOTO expression expression			{ goTo($2, $3); }
+		|		GOTO expression expression	{ goTo($2, $3); }
 		|		WHERE						{ where(); }
 		|		CHANGE_COLOR expression expression expression	{ change_color($2, $3, $4); }
 		|		TURN expression						{ turn($2); }
 		|		MOVE expression expression			{ move($2); }
-		|		//SAVE expression					{ save($2); }
-				//this is my attempt to get variables going lol
-		|		CHAR EQUAL expression_list			//{ (variable location in array) = (the expression) }
+		|		SAVE expression						{ save($2); }
+		|		CHAR EQUAL expression_list			{ store_variables($1, $2); }      // MY attempt at -> (variable location in array) = (the expression) 
 		;
-expression_list:	expression				// Complete these and any missing rules
-		|	expression expression_list   
-		|       expression PLUS expression_list 		// correct?
+expression_list:	expression				   // Complete these and any missing rules
+		|		expression expression_list   
+		|       expression PLUS expression_list 		
 		;
 expression:		NUMBER PLUS expression				{ $$ = $1 + $3; }
-		|	NUMBER MULT expression				{ $$ = $1 * $3; }
-		|	NUMBER SUB expression				{ $$ = $1 - $3; }
-		|	NUMBER DIV expression				{ $$ = $1 / $3; }
-		|	NUMBER
-		|	STRING
+		|		NUMBER MULT expression				{ $$ = $1 * $3; }
+		|		NUMBER SUB expression				{ $$ = $1 - $3; }
+		|		NUMBER DIV expression				{ $$ = $1 / $3; }
+		|		NUMBER
+		|		STRING
 		;
 
 %%
