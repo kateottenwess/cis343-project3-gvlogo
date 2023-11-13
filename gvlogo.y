@@ -93,6 +93,9 @@ void store_variables(char variable, int expression_result);
 
 %%
 
+// When he tells us to Modify the CFG to allow a variable value in the move,turn,and goto commands, 
+// I think he wants those commands to take in a variable as input, instead of an int.
+
 program:		statement_list END			{ printf("Program complete."); shutdown(); exit(0); }
 		;
 statement_list:		statement					
