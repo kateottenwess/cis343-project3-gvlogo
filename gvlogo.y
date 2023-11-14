@@ -5,8 +5,8 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_thread.h>
+#include <SDL.h>
+#include <SDL_thread.h>
 
 static SDL_Window* window;
 static SDL_Renderer* rend;
@@ -33,7 +33,7 @@ typedef struct coord_t {
 //added
 static coords current_coords;
 
-static color current_color = ;
+static color current_color;
 
 //why is height and weight divided by 2?
 static double x = WIDTH / 2;
@@ -53,7 +53,7 @@ void move(int num);
 void turn(int dir);
 void output(const char* s);
 void change_color(int r, int g, int b);
-void c lear();
+void clear();
 void save(const char* path);
 void shutdown();
 void goTo(int x, int y);	// TODO
@@ -62,7 +62,7 @@ void store_variables(char variable, int expression_result);
 
 %}
 
-%union {
+%union {		// add color rgb to here?
 	float f;
 	char* s;
 	int i;
@@ -70,7 +70,6 @@ void store_variables(char variable, int expression_result);
 }
 
 %locations 
-%token CHAR
 %token RUN
 %token SHUTDOWN
 %token GOTO
