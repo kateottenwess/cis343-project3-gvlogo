@@ -117,7 +117,7 @@ command:		PENUP						{ penup(); }
 		|		CHANGE_COLOR expression expression expression	{ change_color($2, $3, $4); }
 		|		TURN expression						{ turn($2); }
 		|		MOVE expression 					{ move($2); }
-		|		SAVE expression						{ save($2); }
+		|		SAVE STRING							{ save($2); }
 		|       SHUTDOWN  						    { shutdown(); }
 		|		CHAR EQUAL expression_list			{ store_variables($1, $3); }      // MY attempt at -> (variable location in array) = (the expression) 
 		;
@@ -130,7 +130,6 @@ expression:		NUMBER PLUS expression				{ $$ = $1 + $3; }
 		|		NUMBER SUB expression				{ $$ = $1 - $3; }
 		|		NUMBER DIV expression				{ $$ = $1 / $3; }
 		|		NUMBER
-		|		STRING
 		;
 
 %%
@@ -338,7 +337,7 @@ void store_variables(char variable, int expression_result) {
 		case 'i':
 			variable[8] = expression_result;
 			break;
-		char 'j':
+		case 'j':
 			variable[9] = expression_result;
 			break;
 		case 'k':
