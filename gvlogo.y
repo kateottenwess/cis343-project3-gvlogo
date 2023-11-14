@@ -89,6 +89,7 @@ void store_variables(char variable, int expression_result);
 %token SAVE
 %token PLUS SUB MULT DIV EQUAL
 %token<s> STRING QSTRING
+%token<c> CHAR
 %type<f> expression expression_list NUMBER
 // %type<s> command  // my attempt at fixing the '$1 of `command' has no declared type' error
 
