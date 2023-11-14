@@ -90,6 +90,7 @@ void store_variables(char variable, int expression_result);
 %token PLUS SUB MULT DIV EQUAL
 %token<s> STRING QSTRING
 %type<f> expression expression_list NUMBER
+// %type<s> command  // my attempt at fixing the '$1 of `command' has no declared type' error
 
 %%
 
@@ -105,7 +106,7 @@ statement:		command SEP					{ prompt(); }
 		|	error '\n' 					    { yyerror; prompt(); }
 		;
 
-// Add definition for Variable here?????
+// Add definition for variable here?????
 
 command:		PENUP						{ penup(); }
 	   	|		PENDOWN						{ pendown(); }
@@ -118,7 +119,7 @@ command:		PENUP						{ penup(); }
 		|		MOVE expression 					{ move($2); }
 		|		SAVE expression						{ save($2); }
 		|       SHUTDOWN  						    { shutdown(); }
-		|		CHAR EQUAL expression_list			{ store_variables($1, $2); }      // MY attempt at -> (variable location in array) = (the expression) 
+		|		CHAR EQUAL expression_list			{ store_variables($1, $3); }      // MY attempt at -> (variable location in array) = (the expression) 
 		;
 expression_list:	expression				   // Complete these and any missing rules
 		|		expression expression_list   
