@@ -6,6 +6,8 @@
     extern void yyerror(const char* s);
 %}
 
+%option noyywrap
+
 %%
 
 [A-Z]{1}[a-z]+                     { yylval.s = yytext; return STRING; } 
@@ -25,11 +27,11 @@ END                                {return END;}
 SAVE                               {return SAVE;}
 RUN                                {return RUN;}
 SHUTDOWN                           {return SHUTDOWN;}
-\+                                {return PLUS;}
-\-                                {return SUB;}
-\*                                {return MULT;}
+\+                                 {return PLUS;}
+\-                                 {return SUB;}
+\*                                 {return MULT;}
 =				                   {return EQUAL;}
-\/                                {return DIV;}
+\/                                 {return DIV;}
 [ \t\r\n]			               {;}
 .			                       { yyerror("Lexing Syntax error.\n"); } 
 

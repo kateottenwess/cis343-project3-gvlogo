@@ -261,6 +261,9 @@ static void yy_flex_free YY_PROTO(( void * ));
 
 #define YY_AT_BOL() (yy_current_buffer->yy_at_bol)
 
+
+#define yywrap() 1
+#define YY_SKIP_YYWRAP
 typedef unsigned char YY_CHAR;
 FILE *yyin = (FILE *) 0, *yyout = (FILE *) 0;
 typedef int yy_state_type;
@@ -417,7 +420,7 @@ char *yytext;
     #include "gvlogo.tab.h"
 
     extern void yyerror(const char* s);
-#line 421 "lex.yy.c"
+#line 424 "lex.yy.c"
 
 /* Macros after this point can all be overridden by user definitions in
  * section 1.
@@ -568,10 +571,10 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
 
-#line 9 "gvlogo.l"
+#line 10 "gvlogo.l"
 
 
-#line 575 "lex.yy.c"
+#line 578 "lex.yy.c"
 
 	if ( yy_init )
 		{
@@ -656,130 +659,130 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 11 "gvlogo.l"
+#line 12 "gvlogo.l"
 { yylval.s = yytext; return STRING; } 
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 12 "gvlogo.l"
+#line 13 "gvlogo.l"
 { yylval.i = atoi(yytext); return NUMBER; }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 13 "gvlogo.l"
+#line 14 "gvlogo.l"
 { yylval.c = yytext; return CHAR; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 14 "gvlogo.l"
+#line 15 "gvlogo.l"
 {return SEP;}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 15 "gvlogo.l"
+#line 16 "gvlogo.l"
 {return GOTO;}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 16 "gvlogo.l"
+#line 17 "gvlogo.l"
 {return WHERE;}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 17 "gvlogo.l"
+#line 18 "gvlogo.l"
 {return CHANGE_COLOR;}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 18 "gvlogo.l"
+#line 19 "gvlogo.l"
 {return PENUP;}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 19 "gvlogo.l"
+#line 20 "gvlogo.l"
 {return PENDOWN;}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 20 "gvlogo.l"
+#line 21 "gvlogo.l"
 {return CLEAR;}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 21 "gvlogo.l"
+#line 22 "gvlogo.l"
 {return TURN;}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 22 "gvlogo.l"
+#line 23 "gvlogo.l"
 {return LOOP;}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 23 "gvlogo.l"
+#line 24 "gvlogo.l"
 {return MOVE;}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 24 "gvlogo.l"
+#line 25 "gvlogo.l"
 {return END;}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 25 "gvlogo.l"
+#line 26 "gvlogo.l"
 {return SAVE;}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 26 "gvlogo.l"
+#line 27 "gvlogo.l"
 {return RUN;}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 27 "gvlogo.l"
+#line 28 "gvlogo.l"
 {return SHUTDOWN;}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 28 "gvlogo.l"
+#line 29 "gvlogo.l"
 {return PLUS;}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 29 "gvlogo.l"
+#line 30 "gvlogo.l"
 {return SUB;}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 30 "gvlogo.l"
+#line 31 "gvlogo.l"
 {return MULT;}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 31 "gvlogo.l"
+#line 32 "gvlogo.l"
 {return EQUAL;}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 32 "gvlogo.l"
+#line 33 "gvlogo.l"
 {return DIV;}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 33 "gvlogo.l"
+#line 34 "gvlogo.l"
 {;}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 34 "gvlogo.l"
+#line 35 "gvlogo.l"
 { yyerror("Lexing Syntax error.\n"); } 
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 36 "gvlogo.l"
+#line 37 "gvlogo.l"
 ECHO;
 	YY_BREAK
-#line 783 "lex.yy.c"
+#line 786 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1665,5 +1668,5 @@ int main()
 	return 0;
 	}
 #endif
-#line 36 "gvlogo.l"
+#line 37 "gvlogo.l"
 

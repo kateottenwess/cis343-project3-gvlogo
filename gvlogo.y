@@ -90,7 +90,6 @@ void store_variables(int *variable, char variable_name, int expression_result);
 %token<s> STRING QSTRING
 %token<c> CHAR
 %type<f> expression expression_list NUMBER
-// %type<s> command  // my attempt at fixing the '$1 of `command' has no declared type' error
 
 %%
 
@@ -309,6 +308,7 @@ void where() {
 }
 
 void store_variables(int *variable, char variable_name, int expression_result) {
+	// take ascii value and subtract val of lowercase a (a-a = 0) (b-a = 1) etc.
 	switch(variable_name) {
 		case 'a':
 			variable[0] = expression_result;
