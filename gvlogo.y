@@ -58,7 +58,7 @@ void save(const char* path);
 void shutdown();
 void goTo(int x, int y);	// TODO
 void where();				// TODO
-void store_variables(char variable, int expression_result);
+void store_variables(char *variable, int expression_result);
 
 %}
 
@@ -308,7 +308,7 @@ void where() {
 	printf("Current coordinates: (%d, %d)\n", current_coords.x, current_coords.y);
 }
 
-void store_variables(char variable, int expression_result) {
+void store_variables(char *variable, int expression_result) {
 	switch(variable) {
 		case 'a':
 			variable[0] = expression_result;
