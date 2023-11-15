@@ -58,7 +58,7 @@ void save(const char* path);
 void shutdown();
 void goTo(int x, int y);	// TODO
 void where();				// TODO
-void store_variables(char *variable, int expression_result);
+void store_variables(int *variable, char variable_name, int expression_result);
 
 %}
 
@@ -119,7 +119,7 @@ command:		PENUP						{ penup(); }
 		|		MOVE expression 					{ move($2); }
 		|		SAVE STRING							{ save($2); }
 		|       SHUTDOWN  						    { shutdown(); }
-		|		CHAR EQUAL expression_list			{ store_variables($1, $3); }      // MY attempt at -> (variable location in array) = (the expression) 
+		|		CHAR EQUAL expression_list			{ store_variables(variable, $1, $3); }      // MY attempt at -> (variable location in array) = (the expression) 
 		;
 expression_list:	expression				   // Complete these and any missing rules
 		|		expression expression_list   
@@ -308,8 +308,8 @@ void where() {
 	printf("Current coordinates: (%d, %d)\n", current_coords.x, current_coords.y);
 }
 
-void store_variables(char *variable, int expression_result) {
-	switch(variable) {
+void store_variables(int *variable, char variable_name, int expression_result) {
+	switch(variable_name) {
 		case 'a':
 			variable[0] = expression_result;
 			break;
