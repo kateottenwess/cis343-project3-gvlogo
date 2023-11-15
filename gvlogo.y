@@ -115,7 +115,7 @@ command:		PENUP						{ penup(); }
 		|		WHERE						{ where(); }
 		|		CHANGE_COLOR expression expression expression	{ change_color($2, $3, $4); }
 		|		TURN expression						{ turn($2); }
-		|		MOVE expression 					{ move($2); }
+		|		MOVE NUMBER 					    { move($2); }
 		|		SAVE STRING							{ save($2); }
 		|       SHUTDOWN  						    { shutdown(); }
 		|		CHAR EQUAL expression_list			{ store_variables(variable, $1, $3); }      // MY attempt at -> (variable location in array) = (the expression) 
@@ -128,7 +128,7 @@ expression:		NUMBER PLUS expression				{ $$ = $1 + $3; }
 		|		NUMBER MULT expression				{ $$ = $1 * $3; }
 		|		NUMBER SUB expression				{ $$ = $1 - $3; }
 		|		NUMBER DIV expression				{ $$ = $1 / $3; }
-		|		NUMBER
+		|		NUMBER							
 		;
 
 %%
@@ -160,6 +160,7 @@ void pendown() {
 }
 
 void move(int num){
+	printf("This is the num being sent: %d. \n");
 	event.type = DRAW_EVENT;
 	event.user.code = 1;
 	event.user.data1 = num;
