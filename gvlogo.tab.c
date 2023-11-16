@@ -120,8 +120,8 @@ int run(void* data);
 void prompt();
 void penup();
 void pendown();
-void move(float num);
-void turn(float dir);
+void move(int num);
+void turn(int dir);
 void output(const char* s);
 void change_color(int r, int g, int b);
 void clear();
@@ -1875,15 +1875,15 @@ void pendown() {
 	SDL_PushEvent(&event);
 }
 
-void move(float num){
-	printf("This is the num being sent: %f \n", num);
+void move(int num){
+	printf("This is the num being sent: %d \n", num);
 	event.type = DRAW_EVENT;
 	event.user.code = 1;
-	event.user.data1 = num;
+	event.user.data1 = (void*)num;
 	SDL_PushEvent(&event);
 }
 
-void turn(float dir){
+void turn(int dir){
 	event.type = PEN_EVENT;
 	event.user.code = 2;
 	event.user.data1 = dir;
