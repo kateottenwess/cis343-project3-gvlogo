@@ -87,9 +87,9 @@ void store_variables(int *variable, char variable_name, int expression_result);
 %token END
 %token SAVE
 %token PLUS SUB MULT DIV EQUAL
-%token<s> STRING QSTRING
-%token<c> CHAR
-%type<f> expression expression_list NUMBER
+%token<s> STRING QSTRING		// fix?
+%token<c> CHAR					// Fix?
+%type<i> expression expression_list NUMBER
 
 %%
 
@@ -160,7 +160,7 @@ void pendown() {
 }
 
 void move(int num){
-	printf("This is the num being sent: %d. \n");
+	printf("This is the num being sent: %d. \n", num);
 	event.type = DRAW_EVENT;
 	event.user.code = 1;
 	event.user.data1 = num;
@@ -309,7 +309,7 @@ void where() {
 }
 
 void store_variables(int *variable, char variable_name, int expression_result) {
-	// take ascii value and subtract val of lowercase a (a-a = 0) (b-a = 1) etc.
+	// we can always take ascii value and subtract val of lowercase a (a-a = 0) (b-a = 1) etc.
 	switch(variable_name) {
 		case 'a':
 			variable[0] = expression_result;
