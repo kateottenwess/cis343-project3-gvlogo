@@ -46,7 +46,7 @@ void change_color(int r, int g, int b);
 void clear();
 void save(const char* path);
 void shutdown();
-void goTo(float x, float y);	// TODO
+void goTo(float new_x, float new_y);	// TODO
 void where();				// TODO
 void store_variables(int *variable, char variable_name, int expression_result);
 
@@ -79,7 +79,7 @@ void store_variables(int *variable, char variable_name, int expression_result);
 %token PLUS SUB MULT DIV EQUAL
 %token<s> STRING QSTRING		// fix?
 %token<c> CHAR					// Fix?
-%type<i> expression expression_list NUMBER
+%type<f> expression expression_list NUMBER
 
 %%
 
@@ -274,24 +274,26 @@ void save(const char* path){
 //TODO test
 void goTo(float new_x, float new_y) {
 	//change current coordinates
-	float prev_x = x;
-	float prev_y = y;
 
-	printf("coords before trying to move: %d, %d\n", x, y);
-	x = new_x;
-	y = new_y;
-	printf("coords after trying to move: %d, %d\n", x, y);
+	if( new_x > x)
+	{	
+		turn(90);
+		move(new_x - x);
+		turn(-90);
+	}
+	else if (new_x < x){
+		turn(-90);
+		move(x - new_x);
+		turn(90);
+	}
 
-	//draw if pen is down
-	if(pen_state == 1){
-		//get change in x and y
-		float slope_y = x - prev_y;
-		float slope_x = y - prev_x;
-
-		//inverse tangent to get degrees to move
-		double dir = atan(slope_y/slope_x);
-		//draw
-		move(dir);
+	if(new_y > y){
+		move(new_y - y);
+	}
+	else if( new_y < y){
+		turn(180);
+		move(y - new_y);
+		turn(180);
 	}
 }
 

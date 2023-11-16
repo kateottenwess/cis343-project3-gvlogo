@@ -95,18 +95,8 @@ typedef struct color_t {
 	unsigned char b;
 } color;
 
-//added
-typedef struct coord_t {
-	float x;
-	float y;
-} coords;
-
-//added
-static coords current_coords;
-
 static color current_color;
 
-//why is height and weight divided by 2?
 static double x = WIDTH / 2;
 static double y = HEIGHT / 2;
 static int pen_state = 1;
@@ -127,14 +117,14 @@ void change_color(int r, int g, int b);
 void clear();
 void save(const char* path);
 void shutdown();
-void goTo(float x, float y);	// TODO
+void goTo(float new_x, float new_y);	// TODO
 void where();				// TODO
 void store_variables(int *variable, char variable_name, int expression_result);
 
 
 
 /* Line 189 of yacc.c  */
-#line 138 "gvlogo.tab.c"
+#line 128 "gvlogo.tab.c"
 
 /* Enabling traces.  */
 #ifndef YYDEBUG
@@ -195,7 +185,7 @@ typedef union YYSTYPE
 {
 
 /* Line 214 of yacc.c  */
-#line 65 "gvlogo.y"
+#line 55 "gvlogo.y"
 		// add color rgb to here?
 	float f;
 	char* s;
@@ -205,7 +195,7 @@ typedef union YYSTYPE
 
 
 /* Line 214 of yacc.c  */
-#line 209 "gvlogo.tab.c"
+#line 199 "gvlogo.tab.c"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
@@ -230,7 +220,7 @@ typedef struct YYLTYPE
 
 
 /* Line 264 of yacc.c  */
-#line 234 "gvlogo.tab.c"
+#line 224 "gvlogo.tab.c"
 
 #ifdef short
 # undef short
@@ -525,9 +515,9 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    99,    99,   101,   102,   104,   105,   110,   111,   112,
-     113,   114,   115,   116,   117,   118,   119,   120,   121,   123,
-     124,   125,   127,   128,   129,   130,   131
+       0,    89,    89,    91,    92,    94,    95,   100,   101,   102,
+     103,   104,   105,   106,   107,   108,   109,   110,   111,   113,
+     114,   115,   117,   118,   119,   120,   121
 };
 #endif
 
@@ -1494,140 +1484,140 @@ yyreduce:
         case 2:
 
 /* Line 1455 of yacc.c  */
-#line 99 "gvlogo.y"
+#line 89 "gvlogo.y"
     { printf("Program complete."); shutdown(); exit(0); ;}
     break;
 
   case 5:
 
 /* Line 1455 of yacc.c  */
-#line 104 "gvlogo.y"
+#line 94 "gvlogo.y"
     { prompt(); ;}
     break;
 
   case 6:
 
 /* Line 1455 of yacc.c  */
-#line 105 "gvlogo.y"
+#line 95 "gvlogo.y"
     { yyerror; prompt(); ;}
     break;
 
   case 7:
 
 /* Line 1455 of yacc.c  */
-#line 110 "gvlogo.y"
+#line 100 "gvlogo.y"
     { penup(); ;}
     break;
 
   case 8:
 
 /* Line 1455 of yacc.c  */
-#line 111 "gvlogo.y"
+#line 101 "gvlogo.y"
     { pendown(); ;}
     break;
 
   case 9:
 
 /* Line 1455 of yacc.c  */
-#line 112 "gvlogo.y"
+#line 102 "gvlogo.y"
     { output((yyvsp[(2) - (2)].s)); ;}
     break;
 
   case 10:
 
 /* Line 1455 of yacc.c  */
-#line 113 "gvlogo.y"
+#line 103 "gvlogo.y"
     { clear(); ;}
     break;
 
   case 11:
 
 /* Line 1455 of yacc.c  */
-#line 114 "gvlogo.y"
-    { goTo((yyvsp[(2) - (3)].i), (yyvsp[(3) - (3)].i)); ;}
+#line 104 "gvlogo.y"
+    { goTo((yyvsp[(2) - (3)].f), (yyvsp[(3) - (3)].f)); ;}
     break;
 
   case 12:
 
 /* Line 1455 of yacc.c  */
-#line 115 "gvlogo.y"
+#line 105 "gvlogo.y"
     { where(); ;}
     break;
 
   case 13:
 
 /* Line 1455 of yacc.c  */
-#line 116 "gvlogo.y"
-    { change_color((yyvsp[(2) - (4)].i), (yyvsp[(3) - (4)].i), (yyvsp[(4) - (4)].i)); ;}
+#line 106 "gvlogo.y"
+    { change_color((yyvsp[(2) - (4)].f), (yyvsp[(3) - (4)].f), (yyvsp[(4) - (4)].f)); ;}
     break;
 
   case 14:
 
 /* Line 1455 of yacc.c  */
-#line 117 "gvlogo.y"
-    { turn((yyvsp[(2) - (2)].i)); ;}
+#line 107 "gvlogo.y"
+    { turn((yyvsp[(2) - (2)].f)); ;}
     break;
 
   case 15:
 
 /* Line 1455 of yacc.c  */
-#line 118 "gvlogo.y"
-    { move((yyvsp[(2) - (2)].i)); ;}
+#line 108 "gvlogo.y"
+    { move((yyvsp[(2) - (2)].f)); ;}
     break;
 
   case 16:
 
 /* Line 1455 of yacc.c  */
-#line 119 "gvlogo.y"
+#line 109 "gvlogo.y"
     { save((yyvsp[(2) - (2)].s)); ;}
     break;
 
   case 17:
 
 /* Line 1455 of yacc.c  */
-#line 120 "gvlogo.y"
+#line 110 "gvlogo.y"
     { shutdown(); ;}
     break;
 
   case 18:
 
 /* Line 1455 of yacc.c  */
-#line 121 "gvlogo.y"
-    { store_variables(variable, (yyvsp[(1) - (3)].c), (yyvsp[(3) - (3)].i)); ;}
+#line 111 "gvlogo.y"
+    { store_variables(variable, (yyvsp[(1) - (3)].c), (yyvsp[(3) - (3)].f)); ;}
     break;
 
   case 22:
 
 /* Line 1455 of yacc.c  */
-#line 127 "gvlogo.y"
-    { (yyval.i) = (yyvsp[(1) - (3)].i) + (yyvsp[(3) - (3)].i); ;}
+#line 117 "gvlogo.y"
+    { (yyval.f) = (yyvsp[(1) - (3)].f) + (yyvsp[(3) - (3)].f); ;}
     break;
 
   case 23:
 
 /* Line 1455 of yacc.c  */
-#line 128 "gvlogo.y"
-    { (yyval.i) = (yyvsp[(1) - (3)].i) * (yyvsp[(3) - (3)].i); ;}
+#line 118 "gvlogo.y"
+    { (yyval.f) = (yyvsp[(1) - (3)].f) * (yyvsp[(3) - (3)].f); ;}
     break;
 
   case 24:
 
 /* Line 1455 of yacc.c  */
-#line 129 "gvlogo.y"
-    { (yyval.i) = (yyvsp[(1) - (3)].i) - (yyvsp[(3) - (3)].i); ;}
+#line 119 "gvlogo.y"
+    { (yyval.f) = (yyvsp[(1) - (3)].f) - (yyvsp[(3) - (3)].f); ;}
     break;
 
   case 25:
 
 /* Line 1455 of yacc.c  */
-#line 130 "gvlogo.y"
-    { (yyval.i) = (yyvsp[(1) - (3)].i) / (yyvsp[(3) - (3)].i); ;}
+#line 120 "gvlogo.y"
+    { (yyval.f) = (yyvsp[(1) - (3)].f) / (yyvsp[(3) - (3)].f); ;}
     break;
 
 
 
 /* Line 1455 of yacc.c  */
-#line 1631 "gvlogo.tab.c"
+#line 1621 "gvlogo.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1846,7 +1836,7 @@ yyreturn:
 
 
 /* Line 1675 of yacc.c  */
-#line 134 "gvlogo.y"
+#line 124 "gvlogo.y"
 
 
 int main(int argc, char** argv){
@@ -1998,25 +1988,28 @@ void save(const char* path){
 }
 
 //TODO test
-void goTo(float x, float y) {
+void goTo(float new_x, float new_y) {
 	//change current coordinates
-	coords prev_coords = current_coords;
 
-	printf("coords before trying to move: %d, %d\n", current_coords.x, current_coords.y);
-	current_coords.x = x;
-	current_coords.y = y;
-	printf("coords after trying to move: %d, %d\n", current_coords.x, current_coords.y);
+	if( new_x > x)
+	{	
+		turn(90);
+		move(new_x - x);
+		turn(-90);
+	}
+	else if (new_x < x){
+		turn(-90);
+		move(x - new_x);
+		turn(90);
+	}
 
-	//draw if pen is down
-	if(pen_state == 1){
-		//get change in x and y
-		float slope_y = current_coords.y - prev_coords.y;
-		float slope_x = current_coords.x - prev_coords.x;
-
-		//inverse tangent to get degrees to move
-		double dir = atan(slope_y/slope_x);
-		//draw
-		move(dir);
+	if(new_y > y){
+		move(new_y - y);
+	}
+	else if( new_y < y){
+		turn(180);
+		move(y - new_y);
+		turn(180);
 	}
 }
 
