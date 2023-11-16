@@ -66,6 +66,7 @@ void store_variables(int *variable, char variable_name, int expression_result);
 	float f;
 	char* s;
 	char c;
+	int i;
 }
 
 %locations 
