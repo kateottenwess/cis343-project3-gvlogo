@@ -11,7 +11,8 @@
 %%
 
 [A-Z]{1}[a-z]+                     { yylval.s = yytext; return STRING; } 
-[0-9]+                             { yylval.i = atoi(yytext); return NUMBER; }
+[0-9]+[.]{1}[0-9]+                 { yylval.f = atof(yytext); return NUMBER; }
+//TODO ^ I edited the above to return float when number is called
 [a-z]{1}			               { yylval.c = yytext; return CHAR; }
 ;                                  {return SEP;}
 GOTO                               {return GOTO;}

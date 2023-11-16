@@ -65,7 +65,6 @@ void store_variables(int *variable, char variable_name, int expression_result);
 %union {		// add color rgb to here?
 	float f;
 	char* s;
-	int i;
 	char c;
 }
 
