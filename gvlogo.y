@@ -31,7 +31,7 @@ static double x = WIDTH / 2;
 static double y = HEIGHT / 2;
 static int pen_state = 1;
 static double direction = 0.0;
-static int variable[26];
+static int variable[26] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
 int yylex(void);
 int yyerror(const char* s);
@@ -47,17 +47,16 @@ void change_color(int r, int g, int b);
 void clear();
 void save(const char* path);
 void shutdown();
-void goTo(float x, float y);	// TODO
-void where();				// TODO
+void goTo(float x, float y);
+void where();	
 void store_variables(int *variable, char variable_name, int expression_result);
-
+int store_variables(int *variable, char variable_name);
 %}
 
 %union {		// add color rgb to here?
 	float f;
 	char* s;
 	char c;
-	int i;
 }
 
 %locations 
@@ -80,7 +79,7 @@ void store_variables(int *variable, char variable_name, int expression_result);
 %token PLUS SUB MULT DIV EQUAL
 %token<s> STRING QSTRING		// fix?
 %token<c> CHAR					// Fix?
-%type<i> expression expression_list NUMBER
+%type<f> expression expression_list NUMBER
 
 %%
 
@@ -109,9 +108,15 @@ command:		PENUP						{ penup(); }
 		|		MOVE NUMBER 					    { move($2); }
 		|		SAVE STRING							{ save($2); }
 		|       SHUTDOWN  						    { shutdown(); }
-		|		CHAR EQUAL expression_list			{ store_variables(variable, $1, $3); }      // MY attempt at -> (variable location in array) = (the expression) 
+		|		MOVE variable						{ move($2); }
+		| 		GOTO variable variable				{ goTo($2, $3); }
+		|		TURN variable						{ turn($2); }
+		|		variable  
 		;
-expression_list:	expression				   // Complete these and any missing rules
+variable:		CHAR EQUAL expression_list 			{ store_variables(variable, $1, $3); }
+	    | 		CHAR								{ return_variable(variable, $1); }	
+
+expression_list:	expression				   
 		|		expression expression_list   
 		|       expression PLUS expression_list 		
 		;
@@ -278,10 +283,10 @@ void goTo(float new_x, float new_y) {
 	float prev_x = x;
 	float prev_y = y;
 
-	printf("coords before trying to move: %d, %d\n", x, y);
+	printf("coords before trying to move: %f, %f\n", x, y);
 	x = new_x;
 	y = new_y;
-	printf("coords after trying to move: %d, %d\n", x, y);
+	printf("coords after trying to move: %f, %f\n", x, y);
 
 	//draw if pen is down
 	if(pen_state == 1){
@@ -384,5 +389,63 @@ void store_variables(int *variable, char variable_name, int expression_result) {
 		case 'z':
 			variable[25] = expression_result;
 			break;
+	}
+}
+
+int store_variables(int *variable, char variable_name) {
+	// we can always take ascii value and subtract val of lowercase a (a-a = 0) (b-a = 1) etc.
+	switch(variable_name) {
+		case 'a':
+			return variable[0];
+		case 'b':
+			return variable[1];
+		case 'c':
+			return variable[2];
+		case 'd':
+			return variable[3];
+		case 'e':
+			return variable[4];
+		case 'f':
+			return variable[5];
+		case 'g':
+			return variable[6];
+		case 'h':
+			return variable[7];
+		case 'i':
+			return variable[8];
+		case 'j':
+			return variable[9];
+		case 'k':
+			return variable[10];
+		case 'l':
+			return variable[11];
+		case 'm':
+			return variable[12];
+		case 'n':
+			return variable[13];
+		case 'o':
+			return variable[14];
+		case 'p':
+			return variable[15];
+		case 'q':
+			return variable[16];
+		case 'r':
+			return variable[17];
+		case 's':
+			return variable[18];
+		case 't':
+			return variable[19];
+		case 'u':
+			return variable[20];
+		case 'v':
+			return variable[21];
+		case 'w':
+			return variable[22];
+		case 'x':
+			return variable[23];
+		case 'y':
+			return variable[24];
+		case 'z':
+			return variable[25];
 	}
 }
