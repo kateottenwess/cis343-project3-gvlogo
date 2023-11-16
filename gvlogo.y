@@ -65,7 +65,6 @@ void store_variables(int *variable, char variable_name, int expression_result);
 %union {		// add color rgb to here?
 	float f;
 	char* s;
-	int i;
 	char c;
 }
 
@@ -90,6 +89,7 @@ void store_variables(int *variable, char variable_name, int expression_result);
 %token<s> STRING QSTRING
 %token<c> CHAR
 %type<f> expression expression_list NUMBER
+//TODO ^ did we write the above for number? or should it jsut be NUMBER?
 
 %%
 
