@@ -284,9 +284,11 @@ void save(const char* path){
 void goTo(int x, int y) {
 	//change current coordinates
 	coords prev_coords = current_coords;
+
+	printf("coords before trying to move: %d, %d\n", current_coords.x, current_coords.y);
 	current_coords.x = x;
 	current_coords.y = y;
-
+	printf("coords after trying to move: %d, %d\n", current_coords.x, current_coords.y);
 	//draw if pen is down
 	if(pen_state == 1){
 		//get change in x and y
