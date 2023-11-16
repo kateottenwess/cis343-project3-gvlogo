@@ -97,8 +97,8 @@ typedef struct color_t {
 
 //added
 typedef struct coord_t {
-	int x;
-	int y;
+	float x;
+	float y;
 } coords;
 
 //added
@@ -120,14 +120,14 @@ int run(void* data);
 void prompt();
 void penup();
 void pendown();
-void move(int num);
-void turn(int dir);
+void move(float num);
+void turn(float dir);
 void output(const char* s);
 void change_color(int r, int g, int b);
 void clear();
 void save(const char* path);
 void shutdown();
-void goTo(int x, int y);	// TODO
+void goTo(float x, float y);	// TODO
 void where();				// TODO
 void store_variables(int *variable, char variable_name, int expression_result);
 
@@ -1875,15 +1875,15 @@ void pendown() {
 	SDL_PushEvent(&event);
 }
 
-void move(int num){
-	printf("This is the num being sent: %d. \n", num);
+void move(float num){
+	printf("This is the num being sent: %f \n", num);
 	event.type = DRAW_EVENT;
 	event.user.code = 1;
 	event.user.data1 = num;
 	SDL_PushEvent(&event);
 }
 
-void turn(int dir){
+void turn(float dir){
 	event.type = PEN_EVENT;
 	event.user.code = 2;
 	event.user.data1 = dir;
@@ -1998,7 +1998,7 @@ void save(const char* path){
 }
 
 //TODO test
-void goTo(int x, int y) {
+void goTo(float x, float y) {
 	//change current coordinates
 	coords prev_coords = current_coords;
 
@@ -2006,11 +2006,12 @@ void goTo(int x, int y) {
 	current_coords.x = x;
 	current_coords.y = y;
 	printf("coords after trying to move: %d, %d\n", current_coords.x, current_coords.y);
+
 	//draw if pen is down
 	if(pen_state == 1){
 		//get change in x and y
-		int slope_y = current_coords.y - prev_coords.y;
-		int slope_x = current_coords.x - prev_coords.x;
+		float slope_y = current_coords.y - prev_coords.y;
+		float slope_x = current_coords.x - prev_coords.x;
 
 		//inverse tangent to get degrees to move
 		double dir = atan(slope_y/slope_x);
@@ -2023,7 +2024,7 @@ void goTo(int x, int y) {
 //TODO test this
 void where() {
 	//print current coordinates
-	printf("Current coordinates: (%d, %d)\n", current_coords.x, current_coords.y);
+	printf("Current coordinates: (%f, %f)\n", x, y);
 }
 
 void store_variables(int *variable, char variable_name, int expression_result) {
