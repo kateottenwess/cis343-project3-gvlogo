@@ -46,13 +46,8 @@ void change_color(int r, int g, int b);
 void clear();
 void save(const char* path);
 void shutdown();
-<<<<<<< HEAD
 void goTo(float new_x, float new_y);	// TODO
 void where();				// TODO
-=======
-void goTo(float x, float y);
-void where();	
->>>>>>> ef1bb5638ed3515d9b63bb8344809d00515d8030
 void store_variables(int *variable, char variable_name, int expression_result);
 int store_variables(int *variable, char variable_name);
 %}
@@ -284,7 +279,7 @@ void save(const char* path){
 //TODO test
 void goTo(float new_x, float new_y) {
 	//change current coordinates
-
+/*
 	if( new_x > x)
 	{	
 		turn(90);
@@ -305,6 +300,22 @@ void goTo(float new_x, float new_y) {
 		move(y - new_y);
 		turn(180);
 	}
+*/
+
+	float slope_x = new_x - x; 
+	float slope_y = new_y - y;
+
+	dir = atan(slope_y/slope_x);
+	printf("direction val: %f\n", dir);
+	turn(dir);
+
+	float move_val = sqrt((pow(slope_x, 2))+(pow(slope_y,2)));
+	printf("move value from dist form: %f\n", move_val);
+	move(move_val);
+
+	x = new_x;
+	y = new_y;
+	
 }
 
 
