@@ -49,7 +49,7 @@ void shutdown();
 void goTo(float new_x, float new_y);	// TODO
 void where();				// TODO
 void store_variables(int *variable, char variable_name, int expression_result);
-int store_variables(int *variable, char variable_name);
+int return_variables(int *variable, char variable_name);
 %}
 
 %union {		// add color rgb to here?
@@ -113,7 +113,7 @@ command:		PENUP						{ penup(); }
 		|		variable  
 		;
 variable:		CHAR EQUAL expression_list 			{ store_variables(variable, $1, $3); }
-	    | 		CHAR								{ return_variable(variable, $1); }	
+	    | 		CHAR								{ return_variables(variable, $1); }	
 
 expression_list:	expression				   
 		|		expression expression_list   
@@ -409,7 +409,7 @@ void store_variables(int *variable, char variable_name, int expression_result) {
 	}
 }
 
-int store_variables(int *variable, char variable_name) {
+int return_variables(int *variable, char variable_name) {
 	// we can always take ascii value and subtract val of lowercase a (a-a = 0) (b-a = 1) etc.
 	switch(variable_name) {
 		case 'a':
