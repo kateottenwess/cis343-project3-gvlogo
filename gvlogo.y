@@ -24,15 +24,6 @@ typedef struct color_t {
 	unsigned char b;
 } color;
 
-//added
-typedef struct coord_t {
-	float x;
-	float y;
-} coords;
-
-//added
-static coords current_coords;
-
 static color current_color;
 
 //why is height and weight divided by 2?
@@ -282,20 +273,21 @@ void save(const char* path){
 }
 
 //TODO test
-void goTo(float x, float y) {
+void goTo(float new_x, float new_y) {
 	//change current coordinates
-	coords prev_coords = current_coords;
+	float prev_x = x;
+	float prev_y = y;
 
-	printf("coords before trying to move: %d, %d\n", current_coords.x, current_coords.y);
-	current_coords.x = x;
-	current_coords.y = y;
-	printf("coords after trying to move: %d, %d\n", current_coords.x, current_coords.y);
+	printf("coords before trying to move: %d, %d\n", x, y);
+	x = new_x;
+	y = new_y;
+	printf("coords after trying to move: %d, %d\n", x, y);
 
 	//draw if pen is down
 	if(pen_state == 1){
 		//get change in x and y
-		float slope_y = current_coords.y - prev_coords.y;
-		float slope_x = current_coords.x - prev_coords.x;
+		float slope_y = x - prev_y;
+		float slope_x = y - prev_x;
 
 		//inverse tangent to get degrees to move
 		double dir = atan(slope_y/slope_x);
