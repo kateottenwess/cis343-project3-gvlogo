@@ -282,43 +282,11 @@ void save(const char* path){
 //TODO test
 void goTo(float new_x, float new_y) {
 	//change current coordinates
-/*
-	if( new_x > x)
-	{	
-		turn(90);
-		move(new_x - x);
-		turn(-90);
-	}
-	else if (new_x < x){
-		turn(-90);
-		move(x - new_x);
-		turn(90);
-	}
 
-	if(new_y > y){
-		move(new_y - y);
-	}
-	else if( new_y < y){
-		turn(180);
-		move(y - new_y);
-		turn(180);
-	}
-*/
-
-	float slope_x = new_x - x; 
-	float slope_y = new_y - y;
-
-	float dir = atan(slope_y/slope_x);
-	printf("direction val: %f\n", dir);
-	turn(dir);
-
-	float move_val = sqrt((pow(slope_x, 2))+(pow(slope_y,2)));
-	printf("move value from dist form: %f\n", move_val);
-	move(move_val);
-
-	x = new_x;
-	y = new_y;
-	
+	SDL_SetRenderTarget(rend, texture);
+	SDL_RenderDrawLine(rend, x, y, new_x, new_y);
+	SDL_SetRenderTarget(rend, NULL);
+	SDL_RenderCopy(rend, texture, NULL, NULL);
 }
 
 

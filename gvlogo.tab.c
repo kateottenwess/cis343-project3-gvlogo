@@ -1994,14 +1994,15 @@ void goTo(float new_x, float new_y) {
 		move(y - new_y);
 		turn(180);
 	}
-*/
 
+*/
+	/* 
 	float slope_x = new_x - x; 
 	float slope_y = new_y - y;
 
-	dir = atan(slope_y/slope_x);
-	printf("direction val: %f\n", dir);
-	turn(dir);
+	float dir = atan(slope_y/slope_x);
+	double degrees = ((int)dir) * M_PI/ 180.0 ;
+	direction += degrees;
 
 	float move_val = sqrt((pow(slope_x, 2))+(pow(slope_y,2)));
 	printf("move value from dist form: %f\n", move_val);
@@ -2009,7 +2010,12 @@ void goTo(float new_x, float new_y) {
 
 	x = new_x;
 	y = new_y;
-	
+	*/
+
+	SDL_SetRenderTarget(rend, texture);
+	SDL_RenderDrawLine(rend, x, y, new_x, new_y);
+	SDL_SetRenderTarget(rend, NULL);
+	SDL_RenderCopy(rend, texture, NULL, NULL);
 }
 
 
