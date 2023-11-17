@@ -107,10 +107,12 @@ command:		PENUP						{ penup(); }
 		|		MOVE NUMBER 					    { move($2); }
 		|		SAVE STRING							{ save($2); }
 		|       SHUTDOWN  						    { shutdown(); }
+		/*
 		|		MOVE variable						{ move($2); }
 		| 		GOTO variable variable				{ goTo($2, $3); }
 		|		TURN variable						{ turn($2); }
 		|		variable  
+		*/
 		;
 variable:		CHAR EQUAL expression_list 			{ store_variables(variable, $1, $3); }
 	    | 		CHAR								{ return_variables(variable, $1); }	
@@ -123,6 +125,7 @@ expression:		NUMBER PLUS expression				{ $$ = $1 + $3; }
 		|		NUMBER MULT expression				{ $$ = $1 * $3; }
 		|		NUMBER SUB expression				{ $$ = $1 - $3; }
 		|		NUMBER DIV expression				{ $$ = $1 / $3; }
+
 		|		NUMBER							
 		;
 
@@ -305,7 +308,7 @@ void goTo(float new_x, float new_y) {
 	float slope_x = new_x - x; 
 	float slope_y = new_y - y;
 
-	dir = atan(slope_y/slope_x);
+	float dir = atan(slope_y/slope_x);
 	printf("direction val: %f\n", dir);
 	turn(dir);
 
